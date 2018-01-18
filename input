@@ -2,8 +2,8 @@
 
 alpha  = 0.1        # nb/np
 theta  = 90 
-kstart = 10.       #k*vb/omega_pe
-kend   = 0.001
+kstart = 1.       #k*vb/omega_pe
+kend   = 1.
 ksteps = 2
 
 < --- beam >
@@ -17,6 +17,6 @@ mu      = 1
 
 < initial_guess >
 
-omega_r        = 0.       # real part
-omega_i        = 1e-2     # imag part
+omega_r        = 1.       # real part
+omega_i        = 1        # imag part
 sol_err        = 1e-5
