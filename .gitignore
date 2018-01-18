@@ -19,6 +19,6 @@ __pycache__/
 tst/
 tests/
 plots/
-tmp/
+*tmp*
 *_vis*
 input_*
