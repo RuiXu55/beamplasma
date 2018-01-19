@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Written by Rui Xu, Oct. 2017
+# Written by Rui Xu, Jan. 2018
 # Email: ruix@princeton.edu
 import sys
 import time
@@ -24,6 +24,8 @@ def main(args):
 
   """ read plasma parameters """
   param = utils.read_param(args)
+  val = param['beta'][0]*param['den'][0]/param['den'][1]
+  param['beta'].append(val)
   
   """ iterate through wavenumber  """
   dk     = (param['kend'][0]-param['kstart'][0])/(param['ksteps'][0]-1)
@@ -65,7 +67,7 @@ if __name__ == '__main__':
   parser.add_argument('-v', '--verbose', help='Verbose (debug) logging',
           action='store_const', const=logging.DEBUG,dest='loglevel')
   args = parser.parse_args()
-  print (parser.parse_args())
+  #print (parser.parse_args())
   sys.exit(main(args))
 
  

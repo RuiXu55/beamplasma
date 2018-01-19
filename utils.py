@@ -14,5 +14,5 @@ def read_param(args):
           else:
             param[key] = [] 
             param[key].append(val)
-  print ("All user defined parameters: %s\n", param)
+  #print ("All user defined parameters: %s\n", param)
   return param
