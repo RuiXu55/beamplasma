@@ -1,7 +1,7 @@
 < problem >                  
 
 alpha  = 0.1        # nb/np
-theta  = 90 
+theta  = 45
 kstart = 1.       #k*vb/omega_pe
 kend   = 1.
 ksteps = 2
@@ -9,14 +9,16 @@ ksteps = 2
 < --- beam >
 beta    = 0.6
 mu      = 1
+den     = 0.1
 
 < --- plasma >
 
 beta    = 0.6
 mu      = 1
+den     = 0.9
 
 < initial_guess >
 
-omega_r        = 1.       # real part
-omega_i        = 1        # imag part
+omega_r        = 1.2       # real part
+omega_i        = -1.5        # imag part
 sol_err        = 1e-5

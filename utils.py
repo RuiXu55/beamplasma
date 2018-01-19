@@ -1,7 +1,7 @@
 def read_param(args):
   param = {}
   if not args.input :
-    args.input = 'inp/input'
+    args.input = 'input'
   with open(args.input,'r') as f:
     for line in f:
       if not line.isspace():
