@@ -1,18 +1,36 @@
 < problem >                  
-theta  = 90
-kstart = 1.       #k*vb/omega_pe
-kend   = 10.
-ksteps = 10
+va     = 1e-4   # alfven velocity in unit of c
+theta  = 70       # kz = k*cos(theta), kx= k*sin(theta)
+kstart = 1.       # k*rho_i
+kend   = 60
+ksteps = 100
 
-< --- beam >
-beta    = 0.6     # vb/c
-mu      = 1       # me*c^2/kT
-den     = 0.1     # den/tot
-< --- backgound plasma >
-mu      = 1
-den     = 0.9
+< --  plasma: ion >
+q         = 1
+bpara     = 1
+bperp     = 1
+mu        = 1       # mass: m_i/m_s 
+den       = 1       # (beam den)/tot
+V         = 0
+
+< --  plasma: beam electron >
+q         = -1
+bpara     = 5
+bperp     = 2.5
+mu        = 1836   # mass is m_i/m_s
+den       = 1.     # density in ion density unit 
+V         = 0.     # in unit of c
+
+< --  plasma: background electron >
+q         = -1
+bpara     = 5
+bperp     = 2.5 
+mu        = 1836   # mass in ion mass unit
+den       = 0.     # density in ion density unit 
+
 
 < initial_guess >
-omega_r        = -1.    # real part
-omega_i        = -1.    # imag part
+omega_r        = 0.    # real part
+omega_i        = 0.1     # imag part
 sol_err        = 1e-5
+m              = 4

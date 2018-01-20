@@ -24,8 +24,6 @@ def main(args):
 
   """ read plasma parameters """
   param = utils.read_param(args)
-  val = param['beta'][0]*param['den'][0]/param['den'][1]
-  param['beta'].append(val)
   
   """ iterate through wavenumber  """
   dk     = (param['kend'][0]-param['kstart'][0])/(param['ksteps'][0]-1)
@@ -45,6 +43,7 @@ def main(args):
         logger.info("solution: zeta= %1.1e +%1.1e i",fzeta[n].real,fzeta[n].imag)
     except ValueError:
       logger.info('ERROR in root finding: wave_k =%f',wave_k[n])
+      sys.exit()
     zeta_guess = fzeta[n]
 
   """ save results to output file """
