@@ -30,7 +30,7 @@ den       = 0.     # density in ion density unit
 
 
 < initial_guess >
-omega_r        = 0.    # real part
+omega_r        = 0.1    # real part
 omega_i        = 0.1     # imag part
 sol_err        = 1e-5
 m              = 4

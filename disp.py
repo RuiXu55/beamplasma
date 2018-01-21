@@ -29,7 +29,7 @@ def det(u0,*arg):
              np.sqrt(p['den'][i]/p['mu'][i])
 
     for n in range(-int(p['m'][0]),int(p['m'][0])+1):
-      ze   = (omega-kVOmp- n*p['Omega'][i])/kpwp
+      ze   = (omega-kVOmp-n*p['Omega'][i])/kpwp
       An   = (delta-1)/omega+((omega-kVOmp-n*p['Omega'][i])*delta\
              + n*p['Omega'][i])/kpwp/omega*f.Z(ze)
       Bn   = 1.-kVOmp/omega + (omega-n*p['Omega'][i])*An
@@ -37,11 +37,11 @@ def det(u0,*arg):
       D[0,0]+= n**2*sp.ive(n,al)*An/al*pref
       D[0,1]+= 1j*n*f.dive(n,al,1)*An*pref
       D[1,0]+= -1j*n*f.dive(n,al,1)*An*pref
-      D[0,2]+= n*sp.ive(n,al)*Bn/np.tan(theta)/al/p['Omega'][i]*pref
-      D[2,0]+= n*sp.ive(n,al)*Bn/np.tan(theta)/al/p['Omega'][i]*pref
-      D[1,1]+= An*pref*(n**2/al*sp.ive(n,al)-2*al*f.dive(n,al,1))
-      D[1,2]+= -1j*f.dive(n,al,1)*Bn/np.tan(theta)/p['Omega'][i]*pref
-      D[2,1]+= 1j*f.dive(n,al,1)*Bn/np.tan(theta)/p['Omega'][i]*pref
+      D[0,2]+= n*sp.ive(n,al)*Bn*np.tan(theta)/al/p['Omega'][i]*pref
+      D[2,0]+= n*sp.ive(n,al)*Bn*np.tan(theta)/al/p['Omega'][i]*pref
+      D[1,1]+= An*(n**2/al*sp.ive(n,al)-2*al*f.dive(n,al,1))*pref
+      D[1,2]+= -1j*f.dive(n,al,1)*Bn*np.tan(theta)/p['Omega'][i]*pref
+      D[2,1]+= 1j*f.dive(n,al,1)*Bn*np.tan(theta)/p['Omega'][i]*pref
       D[2,2]+= 2.*sp.ive(n,al)*Bn*(omega-n*p['Omega'][i])/(wave_k**2*\
                 np.cos(theta)**2*p['bperp'][i]/p['bperp'][0])/p['mu'][i]*pref
         
@@ -54,6 +54,8 @@ def det(u0,*arg):
   D[2,0] += rn**2*np.cos(theta)*np.sin(theta)
   D[2,2] += idty - (rn*np.sin(theta))**2
   res = LA.det(D)
+  print (D)
+  sys.exit()
   return (res.real,res.imag)
 
 if __name__ == '__main__':
