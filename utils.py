@@ -22,6 +22,7 @@ def read_param(args):
   for i in range(param['Nsp'][0]):
     param['Omega'].append(param['mu'][i]*param['q'][i])
 
+  param['den'].append(1-param['den'][1])
   # now only work for electron beam
   if param['den'][2]>0:
     param['V'].append(-param['V'][1]*param['den'][1]/param['den'][2])

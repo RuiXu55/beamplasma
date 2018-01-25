@@ -1,36 +1,35 @@
 < problem >                  
-va     = 1e-4   # alfven velocity in unit of c
-theta  = 0       # kz = k*cos(theta), kx= k*sin(theta)
-kstart = 0.01     # k*rho_i
-kend   = 1 
-ksteps = 100
+va     = 1e-4      # alfven velocity in unit of c
+theta  = 0         # kz = k*cos(theta), kx= k*sin(theta)
+kstart = 0.44       # k*rho_i
+kend   = 0.8
+ksteps = 300
 
 < --  plasma: ion >
 q         = 1
-bpara     = 1
-bperp     = 1.
+bpara     = 0.1
+bperp     = 0.1
 mu        = 1       # mass: m_i/m_s 
 den       = 1       # (beam den)/tot
 V         = 0
 
 < --  plasma: beam electron >
 q         = -1
-bpara     = 10
-bperp     = 2.5 
+bpara     = 0.1
+bperp     = 0.1
 mu        = 1836     # mass is m_i/m_s
-den       = 0.00     # density in ion density unit 
-V         = 0     # in unit of va, should be less than 1/va
+den       = 0.05     # density in ion density unit 
+V         = 990.0    # in unit of va, should be less than 1/va
 
 < --  plasma: background electron >
 q         = -1
-bpara     = 20.
-bperp     = 4 
-mu        = 1836   # mass in ion mass unit
-den       = 1.     # density in ion density unit 
+bpara     = 0.1
+bperp     = 0.1
+mu        = 1836    # mass in ion mass unit
 
 
 < initial_guess >
-omega_r        = 1e-10     # real part
-omega_i        = .1     # imag part
+omega_r        = -1e-10    # real part
+omega_i        = 1     # imag part
 sol_err        = 1e-5
 m              = 4

@@ -56,7 +56,7 @@ def det(u0,*arg):
       D[2,2] += idty - (rn*np.sin(theta))**2
       res = LA.det(D)
   else: # parallel propagation
-      pol = +1
+      pol = -1
       res = p['va'][0]**2*omega**2 - wave_k**2/p['bperp'][0]
       for i in range(int(p['Nsp'][0])):
         delta = p['bperp'][i]/p['bpara'][i]-1.
