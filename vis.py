@@ -14,15 +14,16 @@ col = ['k','r','b','g']
 if __name__ == '__main__':
   if not args.input :
     data = np.load('output.npy').item()
+    x = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][0]/data['mu'][1])  # x = kd_e
+    plt.plot(x,data['fzeta'].imag*data['va'][0]/np.sqrt(data['mu'][0]/data['mu'][1]),lw=2,c=col[0],linestyle='-',label='img')
+    #plt.plot(x,data['fzeta'].imag, lw=2)
+    plt.xlabel(r'$k c/\omega_{pe}$')
+    plt.ylabel(r'$\gamma/\omega_{pe}$')
+  else:
+    data = np.load(args.input+'.npy').item()
     x = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][1])
     plt.plot(x,data['fzeta'].imag/abs(data['Omega'][1]),lw=2,c=col[0],linestyle='-')
-    #plt.plot(x,data['fzeta'].real/abs(data['Omega'][1]),lw=2,c=col[0],linestyle='--')
-  else:
-    for i in range(1,3):
-      data = np.load(args.input+str(i)+'.npy').item()
-      x = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][1])
-      plt.plot(x,data['fzeta'].imag/abs(data['Omega'][1]),lw=2,c=col[i-1],linestyle='-')
-      plt.plot(x,data['fzeta'].real/abs(data['Omega'][1]),lw=2,c=col[i-1],linestyle='--')
+    plt.plot(x,data['fzeta'].real/abs(data['Omega'][1]),lw=2,c=col[0],linestyle='--')
     #plt.xlabel(r'$k\rho_i$')
     plt.xlabel(r'$kc/\omega_{pe}$')
     plt.ylabel('$\omega/\Omega_e$')
