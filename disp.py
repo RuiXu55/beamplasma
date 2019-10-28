@@ -17,7 +17,7 @@ def det(u0,*arg):
   omega = u0[0]+1j*u0[1]  # omega = omega/Omega_ci
   D  = np.zeros((3,3),dtype=complex)
 
-  if(p['theta'][0]>1.0): # oblique propagation
+  if(p['theta'][0]>0.001): # oblique propagation
       # loop for different species
       for i in range(int(p['Nsp'][0])):
         nm = p['mu'][i] * p['den'][i]  # n_s*m_s density*mass for species s
@@ -58,16 +58,17 @@ def det(u0,*arg):
 
       res = LA.det(D/omega**p['expo'][0])
   else: # parallel propagation
-      pol = -1
+      pol = -1  # +1 for whistler mode, -1 for firehose mode
       res = p['va'][0]**2*omega**2 - wave_k**2/p['bperp'][0]
       for i in range(int(p['Nsp'][0])):
-        delta = p['bperp'][i]/p['bpara'][i]-1.
+        delta = 1. - p['bperp'][i]/p['bpara'][i]
         kV = wave_k*p['V'][i]/np.sqrt(p['bperp'][0])
         kpwp  = wave_k*np.sqrt(p['bpara'][i]/p['bperp'][0]*p['mu'][i])
-        pref  = p['mu'][i]*p['den'][i]
+        pref  = p['den'][i]/p['mu'][i]
         ze    = (omega-kV+pol*p['Omega'][i])/kpwp
         ze0   = (omega-kV)/kpwp
-        res  += (ze0*f.Z(ze) - delta*f.dp(ze,0)/2.)*pref
+        res  += (ze0*f.Z(ze) + delta*f.dp(ze,0)/2.)*pref
+      res *= omega**p['expo'][0]
   return (res.real,res.imag)
 
 if __name__ == '__main__':
