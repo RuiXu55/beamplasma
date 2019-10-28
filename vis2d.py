@@ -17,15 +17,16 @@ if __name__ == '__main__':
   else:
     data = np.load(args.input+'.npy').item()
 
-  wave_k = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][1])  # x = kd_e
+  wave_k  = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][0]/data['mu'][1])  # x = kd_e
+  #plt.plot(x,data['fzeta'].imag*data['va'][0]/np.sqrt(data['mu'][0]/data['mu'][1]),lw=2,c=col[0],linestyle='-',label='img')
   X, Y = np.meshgrid(wave_k, data['theta'])
   gamma = data['fzeta'].imag.clip(0)*1e4
   plt.contourf(X, Y,
-          gamma*data['va'][0]*np.sqrt(data['mu'][0]/data['mu'][1]),
+          gamma*data['va'][0]/np.sqrt(data['mu'][0]/data['mu'][1]),
           cmap=plt.cm.jet)
-  #plt.axis([0.01, 0.2, 55, 70])
+  plt.axis([0.04, 0.14, 60, 68])
   plt.xlabel('$kd_e$')
   plt.ylabel(r'$\theta$')
   cbar = plt.colorbar()
-  cbar.ax.set_ylabel(r'$\Gamma/10^4$')
+  cbar.ax.set_ylabel(r'$\Gamma/\omega_{pe}\times10^4$')
   plt.show()

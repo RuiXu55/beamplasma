@@ -44,7 +44,8 @@ def main(args):
     except ValueError:
       logger.info('ERROR in root finding: wave_k =%f',wave_k[n])
       sys.exit()
-    zeta_guess = fzeta[n]
+    #zeta_guess = fzeta[n]
+    zeta_guess = complex(fzeta[n].real, abs(fzeta[n].imag))
 
   """ save results to output file """
   param['wave_k'] = wave_k

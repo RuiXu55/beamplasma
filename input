@@ -1,43 +1,43 @@
 < problem >                  
-va     = 0.004      # alfven velocity in unit of c
-theta  = 50         # kz = k*cos(theta), kx= k*sin(theta)
-kstart = 0.01        # k*rho_i
-kend   = 4
-ksteps = 100
+va     = 0.001      # alfven velocity in unit of c
+theta  = 0.0        # kz = k*cos(theta), kx= k*sin(theta)
+kstart = .1        # k*rho_i
+kend   = 2.4
+ksteps = 40
 
-thetai = 50
-thetae = 70
+thetai = 70
+thetae = 50
 ntheta = 100
 
 < --  plasma: ion >
 q         = 1
-bpara     = 2.0     # parallel plasma beta 
-bperp     = 2.0     # perp plasma beta
+bpara     = 1.0     # parallel plasma beta 
+bperp     = 1.0    # perp plasma beta
 mu        = 1       # mass: m_s/m_i 
 den       = 1       # density: den/den_i
 V         = 0       # drift velocity
 
 < --  plasma: beam electron >
 q         = -1      # charge
-bpara     = 2.0     # beta_parallel
-bperp     = 2.0     # beta_perp
-mu        = 0.01    # mass is m_s/m_i
+bpara     = 1.0     # beta_parallel
+bperp     = 1.0     # beta_perp
+mu        = 0.01  # mass is m_s/m_i
 den       = 0.05   # density in ion density unit 
-V         = 160.0   # in unit of va, should be less than 1/va
+V         = 40   # in unit of va, should be less than 1/va
 
 < --  plasma: background electron >
 q         = -1
-bpara     = 2.0
-bperp     = 2.0
-mu        = 0.01   
-den       = 0.95   # background density and drift v 
+bpara     = 4.0
+bperp     = 1.0
+mu        = 0.01  # mass is m_s/m_i
+den       = 0.99   # background density and drift v: reset
 V         = 0.0    # are automatically reset
 
 
 
 < initial_guess >
-omega_r        = -0.001     # real part
-omega_i        = 0.001     # imag part
+omega_r        = .001     # real part: oemga/Omega_pi
+omega_i        = .1     # imag part
 sol_err        = 1e-6
 m              = 4
-expo           = 0
+expo           = -1 

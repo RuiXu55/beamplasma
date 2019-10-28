@@ -58,16 +58,16 @@ def det(u0,*arg):
 
       res = LA.det(D/omega**p['expo'][0])
   else: # parallel propagation
-      pol = +1  # +1 for whistler mode, -1 for firehose mode
+      pol = -1  # +1 for whistler mode, -1 for firehose mode
       res = p['va'][0]**2*omega**2 - wave_k**2/p['bperp'][0]
       for i in range(int(p['Nsp'][0])):
-        delta = 1. - p['bperp'][i]/p['bpara'][i]
+        delta = p['bperp'][i]/p['bpara'][i]-1.
         kV = wave_k*p['V'][i]/np.sqrt(p['bperp'][0])
         kpwp  = wave_k*np.sqrt(p['bpara'][i]/p['bperp'][0]*p['mu'][i])
-        pref  = p['den'][i]/p['mu'][i]
+        pref  = p['mu'][i]*p['den'][i]
         ze    = (omega-kV+pol*p['Omega'][i])/kpwp
         ze0   = (omega-kV)/kpwp
-        res  += (ze0*f.Z(ze) + delta*f.dp(ze,0)/2.)*pref
+        res  += (ze0*f.Z(ze) - delta*f.dp(ze,0)/2.)*pref
       res *= omega**p['expo'][0]
   return (res.real,res.imag)
 
