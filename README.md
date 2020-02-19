@@ -9,3 +9,5 @@ for simple visualization:
 
 python vis_e.py 
 
+edit input file to change input parameters
+
