@@ -4,7 +4,7 @@
 # Email: ruix@princeton.edu
 import sys
 import time
-import disp
+import disp_tmp as disp
 import utils
 import logging 
 import argparse
@@ -38,6 +38,7 @@ def main(args):
       param['theta'][0] = theta_arr[i]
       for n in range(int(param['ksteps'][0])):
         if i>0 and n==0:
+           #zeta_guess = complex(param['omega_r'][0],param['omega_i'][0])    
            zeta_guess = fzeta[i-1][0]
         logger.info('%d th iteration in %d ksteps \n' ,n,param['ksteps'][0])
         wave_k[n] = param['kstart'][0]+n*dk

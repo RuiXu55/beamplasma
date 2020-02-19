@@ -4,7 +4,7 @@
 # Email: ruix@princeton.edu
 import sys
 import time
-import disp as disp
+import disp
 import utils
 import logging 
 import argparse
@@ -27,29 +27,38 @@ def main(args):
   
   """ iterate through wavenumber  """
   dk     = (param['kend'][0]-param['kstart'][0])/(param['ksteps'][0]-1)
-  fzeta  = np.empty(int(param['ksteps'][0]),dtype=complex)
+  fzeta  = np.empty((int(param['ntheta'][0]), int(param['ksteps'][0])),dtype=complex)
   wave_k = np.empty(int(param['ksteps'][0]))
   zeta_guess = complex(param['omega_r'][0],param['omega_i'][0])    
 
-  for n in range(int(param['ksteps'][0])):
-    logger.info('%d th iteration in %d ksteps \n' ,n,param['ksteps'][0])
-    wave_k[n] = param['kstart'][0]+n*dk
-    """ find dispersion relation root """
-    data = (args, param, wave_k[n])
-    try:
-        sol = root(disp.det,(zeta_guess.real,zeta_guess.imag), \
-            args=data,method='lm',tol=param['sol_err'][0]) 
-        fzeta[n] = complex(sol.x[0],sol.x[1])
-        logger.info("solution: zeta= %1.1e +%1.1e i",fzeta[n].real,fzeta[n].imag)
-    except ValueError:
-      logger.info('ERROR in root finding: wave_k =%f',wave_k[n])
-      sys.exit()
-    zeta_guess = fzeta[n]
-    #zeta_guess = complex(fzeta[n].real, abs(fzeta[n].imag))
+  theta_arr = np.linspace(param['thetai'][0], param['thetae'][0],
+          int(param['ntheta'][0]))
+  for i in range(len(theta_arr)):
+      #param['theta'][0] = theta_arr[i]
+      param['V'][1] = theta_arr[i]
+      param['V'][2] = -param['V'][1]*param['den'][1]/param['den'][2]
+      print (param['mu'][1])
+      for n in range(int(param['ksteps'][0])):
+        if i>0:
+          zeta_guess = fzeta[i-1][n]
+        logger.info('%d th iteration in %d ksteps \n' ,n,param['ksteps'][0])
+        wave_k[n] = param['kstart'][0]+n*dk
+        """ find dispersion relation root """
+        data = (args, param, wave_k[n])
+        try:
+            sol = root(disp.det,(zeta_guess.real,zeta_guess.imag), \
+                args=data,method='lm',tol=param['sol_err'][0]) 
+            fzeta[i][n] = complex(sol.x[0],sol.x[1])
+            logger.info("solution: zeta= %1.1e +%1.1e i",fzeta[i][n].real,fzeta[i][n].imag)
+        except ValueError:
+          logger.info('ERROR in root finding: wave_k =%f',wave_k[n])
+          sys.exit()
+        zeta_guess = fzeta[i][n]
 
   """ save results to output file """
   param['wave_k'] = wave_k
   param['fzeta'] = fzeta
+  param['theta'] = theta_arr
   if args.output :
     np.save(args.output+'.npy',param)
   else:

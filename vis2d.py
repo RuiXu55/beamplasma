@@ -20,11 +20,10 @@ if __name__ == '__main__':
   wave_k  = data['wave_k']/np.sqrt(data['bperp'][0]*data['mu'][0]/data['mu'][1])  # x = kd_e
   #plt.plot(x,data['fzeta'].imag*data['va'][0]/np.sqrt(data['mu'][0]/data['mu'][1]),lw=2,c=col[0],linestyle='-',label='img')
   X, Y = np.meshgrid(wave_k, data['theta'])
-  gamma = data['fzeta'].imag.clip(0)*1e4
-  plt.contourf(X, Y,
-          gamma*data['va'][0]/np.sqrt(data['mu'][0]/data['mu'][1]),
-          cmap=plt.cm.jet)
-  plt.axis([0.04, 0.14, 60, 68])
+  ext = [wave_k[0], wave_k[-1], data['theta'][0], data['theta'][-1]]
+
+  plt.imshow(data['fzeta'].imag, aspect='auto', 
+          origin='lower', extent = ext, vmin=0.01, vmax=10, norm=LogNorm())
   plt.xlabel('$kd_e$')
   plt.ylabel(r'$\theta$')
   cbar = plt.colorbar()
