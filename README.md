@@ -7,7 +7,7 @@ python dsolver.py
 
 for simple visualization:
 
-python vis_e.py 
+python vis/vis_e.py 
 
 edit input file to change input parameters
 
